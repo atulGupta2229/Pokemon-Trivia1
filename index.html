@@ -1,0 +1,68 @@
+<htm>
+    <head>
+        <title>JSON Task</title>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            var ar=new Array();
+            var jsonObj;
+            $.ajax({
+					url: "https://raw.githubusercontent.com/Biuni/PokemonGOPokedex/master/pokedex.json",					
+					success: function(res){
+					jsonObj=JSON.parse(res);
+                    for(var i=0;i<jsonObj.pokemon.length;i++){
+                        ar[i]=jsonObj.pokemon[i].spawn_chance;
+                        ar.sort(function(a, b){ return (b-a); });
+                    }
+                    for(var j=0;j<10;j++){
+                        for(var i=0; i<jsonObj.pokemon.length;i++){
+                            if((jsonObj.pokemon[i].spawn_chance)==(ar[j])){
+                                var nextEvo= new Array();
+                                for(var k=0;k<jsonObj.pokemon[i].next_evolution.length;k++){
+                                    nextEvo.push(jsonObj.pokemon[i].next_evolution[k].name);
+                                }
+                                $('table').append(
+                                    "<tr><td>"+jsonObj.pokemon[i].id+"</td><td>"+jsonObj.pokemon[i].num+"</td><td>"+jsonObj.pokemon[i].name+"</td><td><img src='"+jsonObj.pokemon[i].img+"'></td><td>"+jsonObj.pokemon[i].type+"</td><td>"+jsonObj.pokemon[i].height+"</td><td>"+jsonObj.pokemon[i].weight+"</td><td>"+jsonObj.pokemon[i].candy+"</td><td>"+jsonObj.pokemon[i].candy_count+"</td><td>"+jsonObj.pokemon[i].egg+"</td><td><b>"+jsonObj.pokemon[i].spawn_chance+"</b></td><td>"+jsonObj.pokemon[i].avg_spawns+"</td><td>"+jsonObj.pokemon[i].spawn_time+"</td><td>"+jsonObj.pokemon[i].multipliers+"</td><td>"+jsonObj.pokemon[i].weaknesses+"</td><td>"+jsonObj.pokemon[i].prev_evolution+"</td><td>"+nextEvo+"</td><tr>"
+
+                                            // +jsonObj.pokemon[i].num+"</td><td>"+jsonObj.pokemon[i].name+"</td><td>"+jsonObj.pokemon[i].img+"</td><td>"+jsonObj.pokemon[i].type+"</td><td>"+jsonObj.pokemon[i].height+"</td><td>"+jsonObj.pokemon[i].weight+"</td><td>"+jsonObj.pokemon[i].candy+"</td><td>"+jsonObj.pokemon[i].candy_count+"</td><td>"+jsonObj.pokemon[i].egg+"</td><td>"+jsonObj.pokemon[i].spawn_chance+"</td><td>"+jsonObj.pokemon[i].avg_spawns+"</td><td>"+jsonObj.pokemon[i].spawn_time+"</td><td>"+jsonObj.pokemon[i].multipliers+"</td><td>"+jsonObj.pokemon[i].weaknesses+"</td><td>"+jsonObj.pokemon[i].prev_evolution[0].name+"</td><td>"+jsonObj.pokemon[i].next_evolution[0].name+"</td></tr>"
+                                );            
+                            }
+                        }
+                    }    
+				}
+				});
+             });
+        </script>
+    </head>
+    <body>
+        <table border="2px">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Num</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Type</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Candy</th>
+                    <th>Candy_Count</th>
+                    <th>Egg</th>
+                    <th>Spawn_chance</th>
+                    <th>Avg_spawn</th>
+                    <th>Spawn_time</th>
+                    <th>Multipliers</th>
+                    <th>Weaknesses</th>
+                    <th>Pre_Evolution</th>
+                    <th>Next_Evolution</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <p>
+            
+        </p>
+    </body>
+</htm>
